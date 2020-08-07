@@ -11,6 +11,8 @@ https://openweathermap.org/api
 
 Notes
 
+*Make sure dependencies in requirements.txt are installed
+
 1)Automatic Location Detection is only supported if user has a Chrome Broweser version 84 if you don't have it search city location manually
 
 2)To use automatic location detection add full path of chromedriver.exe within the folder to PATH variable.
