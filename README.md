@@ -11,11 +11,11 @@ https://openweathermap.org/api
 
 Notes
 
-1)Automatic Location Detection is only supported if user has a Chrome Broweser version 84 : 
+1)Automatic Location Detection is only supported if user has a Chrome Broweser version 84 if you don't have it search city location manually
 
 2)To use automatic location detection add full path of chromedriver.exe within the folder to PATH variable.
 
-3)Uncomment the code for twilio if you want to access SMS service 107-114   129-135
+3)Uncomment the code for twilio after entering Twilio account credentials on line 107-114  and  129-135
 
 4)You can edit the Location even within the MainWindow by clicking on the City Name !
 
