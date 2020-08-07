@@ -10,6 +10,14 @@ Sign up a OpenWeatherMapApi account and input your API key into weather.py to  r
 https://openweathermap.org/api
 
 
+Automatic Location Detection is only supported if user has a Chrome Broweser version 84 : 
+
+  1)To use automatic location detection add full path of chromedriver.exe within the folder to PATH variable.
+
+Uncomment the code for twilio if you want to access SMS service
+
+You can edit the Location even within the MainWindow by clicking on the City Name !
+
 Contact me by sending me an email :
 zxt18@ic.ac.uk
 
