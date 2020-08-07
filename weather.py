@@ -17,7 +17,6 @@ import sys
 import time
 import requests
 from pathlib import Path
-from pprint import pprint
 from twilio.rest import Client
 
 ##############CREATE YOUR TWILIO ACCOUNT###############
@@ -28,7 +27,7 @@ to_telephone= '+XXXXXXXXX'
 #######################################################
 
 ##############CREATE OPENWEATHERMAPAPI ACCOUNT###############
-OPENWEATHERMAPAPI_KEY= 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+OPENWEATHERMAPAPI_KEY= 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
 #######################################################
 
 searchWithBar= False
@@ -48,6 +47,7 @@ def ts_to_time_of_day(ts):
 
 def getLocation():
     path= Path( "chromedriver.exe" )
+    print(path)
     options = Options()
     options.add_argument("--use-fake-ui-for-media-stream")
     timeout = 20
@@ -62,8 +62,9 @@ def getLocation():
     longitude= browser.find_elements_by_xpath('//*[@id="longitude"]')
     longitude = [x.text for x in longitude]
     longitude = str(longitude[0])
-    return(latitude,longitude)
     browser.quit()
+    return(latitude,longitude)
+
 
 
 class WorkerSignals(QObject):
@@ -95,18 +96,22 @@ class WeatherWorker(QRunnable):
             if (searchWithLatLon==True):
                 global lat,lon
                 forecasts= getWeather_lat_lon(lat, lon)
-                pprint(forecasts)
                 if forecasts['cod'] == '400' or forecasts['cod'] == '404' :
                     raise Exception(forecasts['message'])
-                client = Client(account_sid, auth_token)
-                weather_string=forecasts['list'][0]['weather'][0]['description']
-                quote='Happiness lies in the joy of achievement and the thrill of creative effort.'
-                message = client.messages \
-                .create(
-                     body= "******************************\n" "Weather around you : \n" + weather_string.title() +  '\n\n'+ quote + '\n ******************************',
-                    from_= from_telephone ,
-                     to=to_telephone
-                 )
+
+                '''
+                Uncomment after entering credentials of twilio
+                '''
+
+                # client = Client(account_sid, auth_token)
+                # weather_string=forecasts['list'][0]['weather'][0]['description']
+                # quote='Happiness lies in the joy of achievement and the thrill of creative effort.'
+                # message = client.messages \
+                # .create(
+                #      body= "******************************\n" "Weather around you : \n" + weather_string.title() +  '\n\n'+ quote + '\n ******************************',
+                #     from_= from_telephone ,
+                #      to=to_telephone
+                #  )
                 self.signals.result.emit(forecasts)
                 searchWithLatLon=False;
                 '''
@@ -118,14 +123,17 @@ class WeatherWorker(QRunnable):
                 r = requests.get(url_2)
                 weather = json.loads(r.text)
                 client = Client(account_sid, auth_token)
-                weather_string=weather['weather'][0]['description']
-                quote='Happiness lies in the joy of achievement and the thrill of creative effort.'
-                message = client.messages \
-                    .create(
-                         body= "******************************\n" "Weather in "+ self.location +": \n" + weather_string.title() +  '\n\n'+ quote + ' \n ******************************',
-                         from_= from_telephone ,
-                         to=to_telephone
-                     )
+                '''
+                Uncomment after entering credentials of twilio
+                '''
+                # weather_string=weather['weather'][0]['description']
+                # quote='Happiness lies in the joy of achievement and the thrill of creative effort.'
+                # message = client.messages \
+                #     .create(
+                #          body= "******************************\n" "Weather in "+ self.location +": \n" + weather_string.title() +  '\n\n'+ quote + ' \n ******************************',
+                #          from_= from_telephone ,
+                #          to=to_telephone
+                #      )
 
                 url = ' http://api.openweathermap.org/data/2.5/forecast?q={}&units=metric&appid={}'.format(self.location,OPENWEATHERMAPAPI_KEY)
                 r = requests.get(url)
@@ -135,7 +143,6 @@ class WeatherWorker(QRunnable):
                 print((forecasts)['cod'])
                 if forecasts['cod'] == '400' or forecasts['cod'] == '404':
                     raise Exception(forecasts['message'])
-                pprint(forecasts)
 
                 self.signals.result.emit(forecasts)
 

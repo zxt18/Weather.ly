@@ -1,0 +1,14 @@
+pip install :
+
+PyQt5
+selenium
+twilio
+pathlib
+
+
+
+For Automatic Location usage : 
+1)Remember to add chromedriver.exe within the folder to PATH variable 
+
+**Only Supports Google Chrome version 84 
+
