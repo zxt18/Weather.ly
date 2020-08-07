@@ -9,3 +9,7 @@ Enter your twilio credentials and mobile number into weather.py
 Sign up a OpenWeatherMapApi account and input your API key into weather.py to  retrieve free weather forecasts : 
 https://openweathermap.org/api
 
+
+Contact me by sending me an email :
+zxt18@ic.ac.uk
+
